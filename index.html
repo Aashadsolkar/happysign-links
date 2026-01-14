@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <title>Reset Password – HappySign</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID">
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f9fafb;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, #eef2ff, #fdf2f8);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -17,34 +17,69 @@
     }
     .card {
       background: #ffffff;
-      padding: 24px;
-      border-radius: 12px;
+      padding: 32px 24px;
+      border-radius: 18px;
       text-align: center;
       max-width: 360px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      width: 90%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      animation: fadeIn 0.6s ease;
     }
-    h2 { margin-bottom: 10px; }
-    p { color: #555; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .logo {
+      width: 80px;
+      height: auto;
+      margin-bottom: 16px;
+    }
+    h2 {
+      margin: 10px 0 8px;
+      font-size: 22px;
+      color: #111827;
+    }
+    p {
+      color: #6b7280;
+      font-size: 15px;
+      margin: 0;
+    }
+    .loader {
+      margin: 20px auto 0;
+      width: 36px;
+      height: 36px;
+      border: 3px solid #e5e7eb;
+      border-top-color: #4f46e5;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
 
   <div class="card">
+    <img class="logo" src="data:image/png;base64,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" alt="HappySign Logo" />
     <h2>Reset Password</h2>
     <p id="status">Opening HappySign app…</p>
+    <div class="loader"></div>
   </div>
 
   <script>
     function openApp() {
       const params = window.location.search;
       const deepLink = "happysign://reset-password" + params;
+
       window.location.href = deepLink;
 
       setTimeout(() => {
         document.getElementById("status").innerText =
           "If the app did not open, please install HappySign from the Play Store.";
-      }, 2000);
+      }, 2500);
     }
+
     window.onload = openApp;
   </script>
 
